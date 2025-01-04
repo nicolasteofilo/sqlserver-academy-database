@@ -21,7 +21,112 @@ To run the scripts in this project, you will need:
    - You can download the free version [SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-downloads).
 2. **SQL Server Management Studio (SSMS)** or any other compatible SQL client.
 
-## How to Use
+### Database Structure
+
+#### Student
+
+| Field       | Type                       |
+|-------------|----------------------------|
+| Id          | UNIQUEIDENTIFIER (PK)     |
+| Name        | NVARCHAR(120)             |
+| Email       | NVARCHAR(180)             |
+| Document    | NVARCHAR(20)              |
+| Phone       | NVARCHAR(20)              |
+| Birthdate   | DATETIME                  |
+| CreateDate  | DATETIME (DEFAULT)        |
+
+---
+
+#### Author
+
+| Field       | Type                       |
+|-------------|----------------------------|
+| Id          | UNIQUEIDENTIFIER (PK)     |
+| Name        | NVARCHAR(80)              |
+| Title       | NVARCHAR(80)              |
+| Image       | NVARCHAR(1024)            |
+| Bio         | NVARCHAR(2000)            |
+| Url         | NVARCHAR(450)             |
+| Email       | NVARCHAR(160)             |
+| Type        | TINYINT                   |
+
+---
+
+#### Career
+
+| Field             | Type                  |
+|--------------------|-----------------------|
+| Id                | UNIQUEIDENTIFIER (PK) |
+| Title             | NVARCHAR(160)         |
+| Summary           | NVARCHAR(2000)        |
+| Url               | NVARCHAR(1024)        |
+| DurationInMinutes | INT                   |
+| Active            | BIT                   |
+| Featured          | BIT                   |
+| Tags              | NVARCHAR(160)         |
+
+---
+
+#### Category
+
+| Field        | Type                  |
+|--------------|-----------------------|
+| Id           | UNIQUEIDENTIFIER (PK) |
+| Title        | NVARCHAR(160)         |
+| Url          | NVARCHAR(1024)        |
+| Summary      | NVARCHAR(2000)        |
+| Order        | INT                   |
+| Description  | TEXT                  |
+| Featured     | BIT                   |
+
+---
+
+#### Course
+
+| Field            | Type                       |
+|-------------------|----------------------------|
+| Id               | UNIQUEIDENTIFIER (PK)     |
+| Tag              | NVARCHAR(20)              |
+| Title            | NVARCHAR(160)             |
+| Summary          | NVARCHAR(2000)            |
+| Url              | NVARCHAR(1024)            |
+| Level            | TINYINT                   |
+| DurationInMinutes| INT                       |
+| CreateDate       | DATETIME                  |
+| LastUpdateDate   | DATETIME                  |
+| Active           | BIT                       |
+| Free             | BIT                       |
+| Featured         | BIT                       |
+| AuthorId         | UNIQUEIDENTIFIER (FK)    |
+| CategoryId       | UNIQUEIDENTIFIER (FK)    |
+| Tags             | NVARCHAR(160)             |
+
+---
+
+#### CareerItem
+
+| Field        | Type                       |
+|--------------|----------------------------|
+| CareerId     | UNIQUEIDENTIFIER (FK)     |
+| CourseId     | UNIQUEIDENTIFIER (FK, PK) |
+| Title        | NVARCHAR(160)             |
+| Description  | TEXT                      |
+| Order        | TINYINT                   |
+
+---
+
+#### StudentCourse
+
+| Field           | Type                       |
+|------------------|----------------------------|
+| CourseId        | UNIQUEIDENTIFIER (FK, PK) |
+| StudentId       | UNIQUEIDENTIFIER (FK, PK) |
+| Progress        | TINYINT                   |
+| Favorite        | BIT                       |
+| StartDate       | DATETIME                  |
+| LastUpdateDate  | DATETIME (DEFAULT)        |
+
+### How to Use
 
 1. Clone this repository:
    ```bash
@@ -48,11 +153,11 @@ To run the scripts in this project, you will need:
    - `EXEC spRemoveStudent 'VALID ID FROM [Student] table'`" To remove one student
    - `EXEC spStudentProgress 'VALID ID FROM [Student] table'`: To get the student's progress in the courses linked to him/her
 
-## Contribution
+### Contribution
 
 Contributions are welcome! If you have suggestions for improvements or want to add new examples, feel free to open a pull request.
 
-## Contact
+### Contact
 
 If you have questions or feedback, feel free to reach out:
 
